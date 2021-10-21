@@ -15,13 +15,15 @@
         <v-container fill-height>
           <v-layout align-center>
             <v-flex>
-              <h3 class="display-3 white--text font-weight-black">
+              <h3 class="display-3 font-weight-black" 
+              :class="slide.color">
                 {{ slide.author }}
               </h3>
               <v-row class="mb-4">
                 <v-col cols="6" md="4">
                   <p
-                    class="subtitle-1 white--text font-weight-medium text-justify"
+                    class="subtitle-1 font-weight-medium text-justify"
+                    :class="slide.color"
                   >
                     {{ slide.text }}
                   </p>
