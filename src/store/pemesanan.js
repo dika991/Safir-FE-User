@@ -6,6 +6,7 @@ const state = () => ({
     pemesanan: {},
     transaksi: {},
   },
+  listPemesanan: [],
   detail: {
     nama: "",
     email: "",
@@ -27,6 +28,7 @@ const mutations = {
   },
   ASSIGN_DETAIL(state, payload) {
     state.detail = {
+      created_at: payload.created_at,
       nama: payload.nama,
       email: payload.email,
       no_hp: payload.no_hp,
@@ -34,7 +36,11 @@ const mutations = {
       detail: payload.detail,
       transaksi: payload.transaksi,
       tagihan: payload.tagihan,
+      code : payload.code,
     };
+  },
+  ASSIGN_LIST(state, payload) {
+    state.listPemesanan = payload;
   },
   CLEAR_FORM(state) {
     state.pemesanan = {
@@ -61,7 +67,6 @@ const actions = {
           resolve(response.data.data.pemesanan.code);
         })
         .catch((error) => {
-          console.log(error.response.data)
           if (!error.response.meta.status) {
             commit("SET_ERRORS", error.response.data.meta.message),
               {
@@ -73,14 +78,42 @@ const actions = {
   },
   getDetailPemesanan({ commit }, payload) {
     return new Promise((resolve) => {
-      $axios.get(`/book/${payload}/detail`).then((response) => {
-        if (response.data.meta.status) {
-          commit("ASSIGN_DETAIL", response.data.data);
-          console.log(response.data.data)
-        }
+      $axios
+        .get(`/book/${payload}/detail`)
+        .then((response) => {
+          console.log(response);
+          if (response.data.meta.status) {
+            commit("ASSIGN_DETAIL", response.data.data);
+          } else {
+            commit("SET_ERRORS", response.data.meta.message);
+          }
 
-        resolve(response.data);
-      });
+          resolve(response.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            resolve(error.response.data);
+          }
+        });
+    });
+  },
+  getListPemesanan({ commit }, payload) {
+    return new Promise((resolve) => {
+      $axios
+        .get(`/book/`)
+        .then((response) => {
+          console.log(response);
+          if (response.data.meta.status) {
+            commit("ASSIGN_LIST", response.data.data);
+          } else {
+            commit("SET_ERRORS", response.data.meta.message);
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            resolve(error.response.data);
+          }
+        });
     });
   },
 };

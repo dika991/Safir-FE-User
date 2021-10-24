@@ -10,8 +10,15 @@ import TipePaket from "../views/paket/PaketTypes.vue";
 import ListPaket from "../views/paket/ListPaket.vue";
 
 import DetailPemesanan from "../views/pemesanan/DetailPemesanan";
+import CekPemesanan from "../views/pemesanan/CekPemesanan.vue";
+import CekDetailPemesanan from "../views/pemesanan/CekDetailPemesanan";
 
 import Login from "../views/auth/Login.vue";
+
+import IndexUser from "../views/user/Index.vue"
+import UserDashboard from "../views/user/UserDashboard.vue"
+import UserPemesanan from "../views/user/UserPemesanan.vue"
+import UserDetailPemesanan from "../views/user/DetailPemesananUser.vue"
 
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -30,6 +37,11 @@ const router = new VueRouter({
           path: "listPaket",
           name : "List Paket",
           component: ListPaket
+        },
+        {
+          path: "cekPemesanan",
+          name : "Cek Pemesanan",
+          component: CekPemesanan
         },
         {
           path: "paket/:code",
@@ -55,32 +67,41 @@ const router = new VueRouter({
       ],
     },
     {
+      path: "/cekPemesanan/:code",
+      name : "Cek Detail Pemesanan",
+      component: CekDetailPemesanan
+    },
+    {
       path: "/login",
       name: "Login",
       component: Login,
     },
+    {
+      path: "/user",
+      component: IndexUser,
+      meta:{
+        requiresAuth: true,
+      },
+      children: [
+        {
+          path: "",
+          name: "Dashboard",
+          component: UserDashboard,
+        },
+        {
+          path: "pemesanan",
+          name : "Pemesanan User",
+          component: UserPemesanan
+        },
+        {
+          path: "pemesanan/:code",
+          name : "Detail Pemesanan User",
+          component : UserDetailPemesanan
+        }
+      ],
+    },
   ],
 });
-// const routes = [
-//   {
-//     path: '/',
-//     name: 'Home',
-//     component: Home
-//   },
-//   {
-//     path: '/about',
-//     name: 'About',
-//     // route level code-splitting
-//     // this generates a separate chunk (about.[hash].js) for this route
-//     // which is lazy-loaded when the route is visited.
-//     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-//   }
-// ]
-
-// const router = new VueRouter({
-//   routes
-// })
-//Navigation Guards
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
