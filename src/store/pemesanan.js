@@ -15,6 +15,7 @@ const state = () => ({
     transaksi: {},
     tagihan: [],
     detail: {},
+    jemaah: [],
   },
 });
 
@@ -37,6 +38,7 @@ const mutations = {
       transaksi: payload.transaksi,
       tagihan: payload.tagihan,
       code : payload.code,
+      jemaah: payload.jemaah,
     };
   },
   ASSIGN_LIST(state, payload) {
@@ -81,7 +83,6 @@ const actions = {
       $axios
         .get(`/book/${payload}/detail`)
         .then((response) => {
-          console.log(response);
           if (response.data.meta.status) {
             commit("ASSIGN_DETAIL", response.data.data);
           } else {

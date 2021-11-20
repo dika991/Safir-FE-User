@@ -2,7 +2,9 @@ import Vue from "vue";
 import Vuex from "vuex";
 import paket from "./package.js";
 import auth from "./auth.js";
-import pemesanan from "./pemesanan.js"
+import pemesanan from "./pemesanan.js";
+import jemaah from "./jemaah.js";
+import dokumen from "./dokumen.js";
 
 Vue.use(Vuex);
 
@@ -30,7 +32,9 @@ const store = new Vuex.Store({
   modules: {
     paket,
     auth,
-    pemesanan
+    pemesanan,
+    jemaah,
+    dokumen,
   },
   getters: {
     isAuth: (state) => {
@@ -38,7 +42,7 @@ const store = new Vuex.Store({
     },
     user: (state) => {
       return state.user;
-    }
+    },
   },
 });
 

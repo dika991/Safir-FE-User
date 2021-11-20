@@ -4,23 +4,36 @@
       <v-col cols="12">
         <v-container>
           <v-row class="mt-2 mb-2">
-            <v-col cols="4" v-for="row in this.recent" :key="row.id">
-              <v-card class="mx-auto my-12" max-width="374">
+            <v-col cols="12" md="4" v-for="row in this.recent" :key="row.id">
+              <v-card class="mx-auto my-12" max-width="374" max-height="500">
                 <v-img
                   height="250"
                   :src="row.photo[0].url"
+                  v-if="row.photo"
                 ></v-img>
-                <v-card-title>{{row.nama}}</v-card-title>
 
                 <v-card-text>
-                  <v-row align="center" class="mx-0">{{row.tipe[0].harga | toCurrency}}</v-row>
+                  <v-row align="center" class="mx-0">
+                    <span class="text-subtitle-2">
+                      {{ row.nama }}
+                    </span>
+                  </v-row>
+                  <v-row align="center" class="mx-0" v-if="row.tipe">{{
+                    row.tipe[0].harga | toCurrency
+                  }}</v-row>
 
                   <div class="my-4">
                     Nikmati paket umrah termurah dengan banyak keuntungan.
                   </div>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn color="deep-purple lighten-2" text @click="move(row.kode)"> Detail </v-btn>
+                  <v-btn
+                    color="deep-purple lighten-2"
+                    text
+                    @click="move(row.kode)"
+                  >
+                    Detail
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
@@ -52,9 +65,9 @@ export default {
   },
   methods: {
     ...mapActions("paket", ["getRecentPackage"]),
-    move(code){
-      this.$router.push({path: "/paket/" + code});
-    }
+    move(code) {
+      this.$router.push({ path: "/paket/" + code });
+    },
   },
 };
 </script>

@@ -26,7 +26,7 @@ export default {
         width: 4312,
         height: 2868,
         download_url:
-          "http://safir-be.test/storage/NewProject.jpg",
+          "http://127.0.0.1:8000/storage/NewProject.jpg",
       },
     ],
     brands: [

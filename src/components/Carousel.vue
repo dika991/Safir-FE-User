@@ -22,7 +22,7 @@
               <v-row class="mb-4">
                 <v-col cols="6" md="4">
                   <p
-                    class="subtitle-1 font-weight-medium text-justify"
+                    class="subtitle-1 font-weight-medium text-justify hidden-xs-only"
                     :class="slide.color"
                   >
                     {{ slide.text }}

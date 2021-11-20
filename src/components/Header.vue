@@ -14,7 +14,7 @@
           >Login</v-btn
         >
         <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
+          <template v-slot:activator="{ on, attrs }" v-if="this.isAuth">
             <v-btn color="teal" dark v-bind="attrs" v-on="on">
               {{ user.name }}
             </v-btn>
@@ -43,7 +43,7 @@ export default {
         { path: "/cekPemesanan", name: "Cek Pemesanan" },
       ],
       items: [
-        { path: "/pemesanan", title: "Pemesanan" },
+        { path: "/user/", title: "Pemesanan" },
         { path: "/pengaturan", title: "Pengaturan" },
         { path: "/logout", title: "Logout" },
       ],
